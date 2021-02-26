@@ -1,0 +1,33 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyCallingNonCallableInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="6">
+            <item index="0" class="java.lang.String" itemvalue="pika" />
+            <item index="1" class="java.lang.String" itemvalue="cx_Oracle" />
+            <item index="2" class="java.lang.String" itemvalue="pycodestyle" />
+            <item index="3" class="java.lang.String" itemvalue="numpy" />
+            <item index="4" class="java.lang.String" itemvalue="flake8" />
+            <item index="5" class="java.lang.String" itemvalue="layouts-file" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="django.db.models.fields.FloatField.__mul__" />
+          <option value="django.db.models.fields.FloatField.__sub__" />
+          <option value="property.setter" />
+          <option value="payment.models.Bank.objects" />
+          <option value="payment.models.Bank.DoesNotExist" />
+          <option value="integrator.user.models.User.*" />
+          <option value="integrator.group.models.GroupAccess.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

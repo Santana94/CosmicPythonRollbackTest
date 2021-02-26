@@ -13,8 +13,8 @@ unit-tests:
 integration-tests: up
 	docker-compose run --rm --no-deps --entrypoint=pytest api /tests/integration
 
-e2e-tests: up
-	docker-compose run --rm --no-deps --entrypoint=pytest api /tests/e2e
+e2e-tests: down up
+	docker-compose run --rm --no-deps --entrypoint=pytest api /tests/e2e -vv
 
 logs:
 	docker-compose logs --tail=25 api redis_pubsub

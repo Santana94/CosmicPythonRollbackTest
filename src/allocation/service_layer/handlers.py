@@ -13,7 +13,6 @@ class InvalidSku(Exception):
     pass
 
 
-
 def add_batch(
         cmd: commands.CreateBatch, uow: unit_of_work.AbstractUnitOfWork
 ):
@@ -26,6 +25,15 @@ def add_batch(
             cmd.ref, cmd.sku, cmd.qty, cmd.eta
         ))
         uow.commit()
+
+
+def list_batches(uow: unit_of_work.AbstractUnitOfWork):
+    with uow:
+        batches = uow.products.list_batches()
+        return [
+            {'id': batch.id, 'reference': batch.reference, 'sku': batch.sku}
+            for batch in batches
+        ]
 
 
 def allocate(

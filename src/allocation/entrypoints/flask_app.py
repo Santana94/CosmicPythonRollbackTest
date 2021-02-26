@@ -1,11 +1,18 @@
 from datetime import datetime
 from flask import Flask, jsonify, request
 from allocation.domain import commands
-from allocation.service_layer.handlers import InvalidSku
+from allocation.service_layer import unit_of_work
+from allocation.service_layer.handlers import InvalidSku, list_batches
 from allocation import bootstrap, views
 
 app = Flask(__name__)
 bus = bootstrap.bootstrap()
+
+
+@app.route("/batches", methods=['GET'])
+def batches():
+    batches_list = list_batches(unit_of_work.SqlAlchemyUnitOfWork())
+    return jsonify(batches_list), 201
 
 
 @app.route("/add_batch", methods=['POST'])

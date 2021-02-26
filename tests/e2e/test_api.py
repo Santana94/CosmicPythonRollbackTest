@@ -2,6 +2,7 @@ import pytest
 from ..random_refs import random_batchref, random_orderid, random_sku
 from . import api_client
 
+
 @pytest.mark.usefixtures('postgres_db')
 @pytest.mark.usefixtures('restart_api')
 def test_happy_path_returns_202_and_batch_is_allocated():
@@ -22,6 +23,14 @@ def test_happy_path_returns_202_and_batch_is_allocated():
     assert r.json() == [
         {'sku': sku, 'batchref': earlybatch},
     ]
+
+
+@pytest.mark.usefixtures('postgres_db')
+@pytest.mark.usefixtures('restart_api')
+def test_list_batches():
+    r = api_client.get_batches()
+    assert r.json() == []
+    assert r.ok
 
 
 @pytest.mark.usefixtures('postgres_db')

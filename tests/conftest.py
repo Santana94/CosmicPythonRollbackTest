@@ -13,6 +13,7 @@ from tenacity import retry, stop_after_delay
 
 from allocation.adapters.orm import metadata, start_mappers
 from allocation import config
+from allocation.service_layer.unit_of_work import SqlAlchemyUnitOfWork
 
 pytest.register_assert_rewrite('tests.e2e.api_client')
 
@@ -57,11 +58,11 @@ def postgres_db():
     metadata.create_all(engine)
     return engine
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def postgres_session_factory(postgres_db):
     yield sessionmaker(bind=postgres_db)
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def postgres_session(postgres_session_factory):
     return postgres_session_factory()
 
@@ -82,3 +83,9 @@ def restart_redis_pubsub():
         ['docker-compose', 'restart', '-t', '0', 'redis_pubsub'],
         check=True,
     )
+
+
+@pytest.fixture(scope='session')
+def _db(postgres_session):
+    db = SqlAlchemyUnitOfWork(postgres_session)
+    return db

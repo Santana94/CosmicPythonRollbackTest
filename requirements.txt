@@ -11,3 +11,4 @@ mypy
 pylint
 requests
 tenacity
+pytest-flask-sqlalchemy

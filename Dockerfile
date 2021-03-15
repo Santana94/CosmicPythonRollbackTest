@@ -1,6 +1,6 @@
 FROM python:3.8-alpine
 
-RUN apk add --no-cache --virtual .build-deps gcc postgresql-dev musl-dev python3-dev
+RUN apk add --no-cache --virtual .build-deps build-base libevent-dev gcc postgresql-dev musl-dev python3-dev
 RUN apk add libpq
 
 COPY requirements.txt /tmp/

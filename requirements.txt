@@ -11,4 +11,11 @@ mypy
 pylint
 requests
 tenacity
-pytest-flask-sqlalchemy
+flask-sqlalchemy
+sqla-paranoid==0.1.1
+SQLAlchemy==1.3.3
+pyramid==1.10.4
+pyramid_localize==0.1.0
+pyramid-basemodel==0.3.6
+zope.sqlalchemy==1.1.0
+transaction==2.4.0

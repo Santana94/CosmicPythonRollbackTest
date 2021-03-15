@@ -4,12 +4,16 @@ import subprocess
 import time
 from pathlib import Path
 
+import pyramid_basemodel
 import pytest
 import redis
 import requests
+import transaction
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, clear_mappers
+from sqlalchemy.orm import sessionmaker, clear_mappers, scoped_session
+from sqlalchemy.pool import NullPool
 from tenacity import retry, stop_after_delay
+from zope.sqlalchemy import ZopeTransactionExtension
 
 from allocation.adapters.orm import metadata, start_mappers
 from allocation import config
@@ -89,3 +93,17 @@ def restart_redis_pubsub():
 def _db(postgres_session):
     db = SqlAlchemyUnitOfWork(postgres_session)
     return db
+
+
+@pytest.fixture(scope='function')
+def db_session():
+    engine = create_engine(config.get_postgres_uri(), echo=False, poolclass=NullPool)
+    metadata.create_all(engine)
+    pyramid_basemodel.Session = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+    pyramid_basemodel.bind_engine(
+        engine, pyramid_basemodel.Session, should_create=True, should_drop=True)
+
+    yield pyramid_basemodel.Session
+
+    transaction.commit()
+    metadata.drop_all(engine)

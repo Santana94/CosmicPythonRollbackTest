@@ -5,11 +5,10 @@ from . import api_client, redis_client
 from ..random_refs import random_batchref, random_orderid, random_sku
 
 
-
 @pytest.mark.usefixtures('postgres_db')
 @pytest.mark.usefixtures('restart_api')
 @pytest.mark.usefixtures('restart_redis_pubsub')
-def test_change_batch_quantity_leading_to_reallocation():
+def test_change_batch_quantity_leading_to_reallocation(db_session):
     # start with two batches and an order allocated to one of them
     orderid, sku = random_orderid(), random_sku()
     earlier_batch, later_batch = random_batchref('old'), random_batchref('newer')

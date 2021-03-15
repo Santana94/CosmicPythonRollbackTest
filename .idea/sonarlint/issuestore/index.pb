@@ -38,3 +38,6 @@ U
 %src/allocation/adapters/repository.py,1/a/1a14408575ae45bda111be7dd1b9b0dbed1b1b1e
 \
 ,src/allocation/service_layer/unit_of_work.py,2/c/2c89523d50beb32db8238dc2ae04d912bd79efd2
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
